@@ -8,7 +8,8 @@
 
 
 В качестве корневого узла мы выбираем 2D ноду<br>
->Также немаловажно объяснить им, что такое [нода](https://docs.godotengine.org/ru/4.x/classes/class_node.html)
+> [!IMPORTANT]
+> Также немаловажно объяснить им, что такое [нода](https://docs.godotengine.org/ru/4.x/classes/class_node.html)
 
 Стены будем делать из `ColorRect` <br>
 `ColorRect` - просто квадрат, который можно закрасить<br>
