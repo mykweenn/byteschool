@@ -5,7 +5,7 @@
 ### Создание уровня и лабиринта
 На этом проекте мы еще не работаем с камерой и поэтому игра будет ограничена в пределах игрового экрана, который видно в движке<br>
 <br>
-<img src="mykweenn/byteschool/lesson-1/img/MpGhqF4Z-gY.jpg">
+<img src="https://github.com/mykweenn/byteschool/blob/main/lesson-1/img/MpGhqF4Z-gY.jpg?raw=true">
 >Естественно, надо объяснить, что за прямоугольник они видят.
 
 
