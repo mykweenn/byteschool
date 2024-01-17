@@ -10,6 +10,8 @@
 
 
 В качестве корневого узла мы выбираем 2D ноду<br>
+<br>
+<img src="https://github.com/mykweenn/byteschool/blob/main/lesson-1/img/sX-LqnN2YtY.jpg?raw=true">
 > [!IMPORTANT]
 > Также немаловажно объяснить им, что такое [нода](https://docs.godotengine.org/ru/4.x/classes/class_node.html)
 
