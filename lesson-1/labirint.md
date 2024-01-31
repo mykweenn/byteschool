@@ -174,7 +174,7 @@ func _on_button_pressed():
 var timer : float = 0.0
 ```
 И пишем следующий код. 
-> [!TIP]
+> [!IMPORTANT]
 > Дельта это время с прошедшего кадра
 ```gdscript
 timer += delta
