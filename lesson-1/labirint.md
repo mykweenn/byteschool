@@ -14,6 +14,14 @@
 <img src="https://github.com/mykweenn/byteschool/blob/main/lesson-1/img/sX-LqnN2YtY.jpg?raw=true">
 > [!IMPORTANT]
 > Также немаловажно объяснить им, что такое [нода](https://docs.godotengine.org/ru/4.x/classes/class_node.html)
+> Если вкратце, то нода это узел, а узел - объект, соединённый с другими объектами (узлами) как часть системы
+```mermaid
+graph TD;
+    Узел_A-->Узел_B;
+    Узел_A-->Узел_C;
+    Узел_B-->Узел_D;
+    Узел_C-->Узел_E;
+```
 
 Стены будем делать из `ColorRect` <br>
 `ColorRect` - просто квадрат, который можно закрасить<br>
@@ -131,11 +139,35 @@ func _process():
 
 1. В ареа2д добавляем узел body_entered() и делаем обновление сцены
 ```gdscript
-  func _on_area_2d_body_entered(body):
-    get_tree().reload_current_scene()
+func _on_area_2d_body_entered(body):
+  get_tree().reload_current_scene()
 ```
 
-1. Делаем менюшку победы. Для этого добавляем еще 1 ареа2д и добавляем ему коллизию + переименовываем. Добавляем label и кнопку. И пишем следующий код. Добавляем узел body_entered() и добавляем кнопке функционал на обновление сцены
+2. Делаем менюшку победы. Для этого добавляем еще 1 ареа2д и добавляем ему коллизию + переименовываем. Добавляем label и кнопку. И пишем следующий код. Добавляем узел body_entered() и добавляем кнопке функционал на обновление сцены
+```gdscript
+func _on_win_body_entered(body):
+  $Label.visible = true
+  $Button.visible = true
+  set_process(false)
 
-1. Добавляем таймер. Для этого добавляем Label и в параметре Text пишем Time: 
+func _on_button_pressed():
+  get_tree().reload_current_scene()
+```
 
+3. Добавляем таймер. Для этого добавляем Label и в параметре Text пишем Time:
+В коде создаем переменную типа float
+```gdscript
+var timer : float = 0.0
+```
+И пишем следующий код. 
+> [!TIP]
+> Дельта это время с прошедшего кадра
+```gdscript
+timer += delta
+$Labe.text = str("Time: ", int(timer))
+```
+4. Можно дать попробовать самим, если не получится показать как
+```gdscript
+if timer >= 2:
+  $Button.visible = true
+```
