@@ -27,8 +27,22 @@ graph TD;
 `ColorRect` - просто квадрат, который можно закрасить<br>
 Строим лабиринт из ColorRect’ов.<br>
 
+<img src="https://github.com/mykweenn/byteschool/blob/main/lesson-1/img/11wgoNB8Pus.jpg">
+
 > [!TIP]
 > Лучше всего однотипные узлы сгруппировать в `node_2d` и переименовать его в говорящее название типа `level` или `walls`.<br>
+> Типа вот такого:
+
+<details>
+
+<summary>level</summary>
+
+ColorRect<br> 
+ColorRect<br> 
+ColorRect<br> 
+ColorRect<br> 
+
+</details>
 
 Добавляем столько, сколько нужно. Инструменты для изменения размеров `ColorRect` представлены вверху сцены<br>
 
