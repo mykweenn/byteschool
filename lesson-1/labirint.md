@@ -185,3 +185,6 @@ $Labe.text = str("Time: ", int(timer))
 if timer >= 2:
   $Button.visible = true
 ```
+
+Ссылка на код:
+https://gist.github.com/mykweenn/77992373e8eccb0b494c30e49c4e09f4.js
