@@ -138,7 +138,7 @@ var point = Vector2()
 
 ``` gdscript
 func _ready():
-  screen_size = get_viewport_rect().size
+	screen_size = get_viewport_rect().size
 ```
 **Давай разберем этот код построчно:**
 
@@ -150,9 +150,9 @@ func _ready():
 
 ``` gdscript
 func _process(delta):
-  timer += delta
-  time_to_change_dir = randi_range(2, 8)
-  print(time_to_change_dir)
+	timer += delta
+	time_to_change_dir = randi_range(2, 8)
+	print(time_to_change_dir)
 ```
  **Давай разберем этот код построчно:**
 
@@ -169,10 +169,10 @@ func _process(delta):
 <br>
 
 ``` gdscript
-  if timer >= time_to_change_dir:
-    timer = 0
-    point = Vector2(randf_range(0,screen_size.x), randf_range(0, screen_size.y))
-  self.position = lerp(self.position, point, 0.002)
+	if timer >= time_to_change_dir:
+		timer = 0
+		point = Vector2(randf_range(0,screen_size.x), randf_range(0, screen_size.y))
+	self.position = lerp(self.position, point, 0.002)
 ```
  **Давай разберем этот код построчно:**
 1. `if timer >= time_to_change_dir:` - Эта строка представляет условный оператор if, который проверяет, если значение переменной timer больше или равно значению переменной `time_to_change_dir`.
@@ -240,10 +240,10 @@ func _process(delta):
 
 
 ``` gdscript
-if point.x > self.position.x:
-    $AnimatedSprite2D.flip_h = false;
-  else: 
-    $AnimatedSprite2D.flip_h = true;
+	if point.x > self.position.x:
+		$AnimatedSprite2D.flip_h = false;
+	else: 
+		$AnimatedSprite2D.flip_h = true;
 ```
 Этот код проверяет, находится ли точка с координатой x правее (больше) позиции объекта, в котором этот код выполняется. Если это так, то изображение, которое отображается на объекте (обозначенном как`$AnimatedSprite2D`), не будет отражено по горизонтали `(flip_h = false)`. Если точка находится слева (меньше или равна) позиции объекта, изображение будет отражено по горизонтали `(flip_h = true)`. Таким образом, объект будет "смотреть" в сторону точки, находящейся дальше по оси x.
 
