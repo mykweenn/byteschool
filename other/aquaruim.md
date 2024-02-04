@@ -251,8 +251,8 @@ func _process(delta):
 <br>
 И последние строчки кода:
 ``` gdscript
-  position = position.clamp(Vector2.ZERO, screen_size)
-  move_and_slide()
+	position = position.clamp(Vector2.ZERO, screen_size)
+	move_and_slide()
 ```
 1. `position = position.clamp(Vector2.ZERO, screen_size):` Эта строка кода означает, что позиция объекта ограничивается в пределах определенной области. Метод `clamp` используется для этого. В данном случае, `Vector2.ZERO` представляет точку (0, 0), а `screen_size` - размер экрана игры. Таким образом, позиция объекта будет ограничена в пределах от (0, 0) до размеров экрана.
 
