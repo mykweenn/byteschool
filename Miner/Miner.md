@@ -16,5 +16,3 @@
 
 Добавляем наш набор тайлов, он должен выглядить примерно так:
 ![image](https://github.com/Sindikaty/byteschool/assets/158248099/bcd51ef5-c1ba-401f-af4c-4871413c440b)
-
-
