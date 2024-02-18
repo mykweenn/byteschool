@@ -7,45 +7,14 @@
 
 В качестве корневого узла мы выбираем 2D ноду
 
-![alt text](https://github.com/mykweenn/byteschool/raw/main/lesson-1/img/sX-LqnN2YtY.jpg?raw=true)
+<img src="https://github.com/Sindikaty/byteschool/blob/patch-1/Miner/img/2D.png?raw=true">
+
+Для создания игровой доски будет использоватся `TileMap` <br>
+В свойствах `TileMap` создаем `TileSet` после чего у нас появится сетка которая будет играть роль нашей доски в будущем
+> [!Tip]
+>  Для удобства дальнейшего добавления тайлов можно сразу поставить в свойствах `TileSet` размер тайла 48x48px .<br>
+
+Добавляем наш набор тайлов, он должен выглядить примерно так:
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/bcd51ef5-c1ba-401f-af4c-4871413c440b)
 
 
-
-
----
-
-title: 'About <subject>'
-shortTitle: '<subject>'
-intro: 'Article intro. See tips for a great intro below.'
-product: "optional product callout"
-type: overview
-topics:
-  - topic
-versions:
-  - version
----
-
-{% comment %}
-
-- Follow the guidelines in https://docs.github.com/contributing/writing-for-github-docs/content-model#conceptual to write this article.
-- Great intros give readers a quick understanding of what's in the article, so they can tell whether it's relevant to them before moving ahead. For more tips, see https://docs.github.com/contributing/writing-for-github-docs/content-model
-- For product callout info, see https://github.com/github/docs/tree/main/content#product
-- For product version instructions, see https://github.com/github/docs/tree/main/content#versioning
-- Remove these comments from your article file when you're done writing.
-{% endcomment %}
-
-
-
-{% comment %}
-
-Write one or two paragraphs about the main idea of your topic, as a summary. 
-Make sure you don't have any content that isn't preceded by a header, or it won't be linkable in our table of contents. 
-{% endcomment %}
-
-## Another section here
-
-{% comment %}
-
-Write one or two paragraphs about another element of your topic. 
-Keep adding headers and sections until you've completed your article.  
-{% endcomment %}
