@@ -37,6 +37,7 @@ var input_vector = Vector2.ZERO
 func _physics_process(delta: float):
 	var mouse_pos = get_global_mouse_position() # - получаем позицию мыши
 	look_at(mouse_pos) # - персонаж смотрит на курсор (мышь)
+	Input.set_custom_mouse_cursor(cursor, Input.CURSOR_ARROW, Vector2(16,16)) # смотри это ниже
 	$AnimatedSprite2D.global_rotation = 0.0 # - блокирует возможность вращения текстуры персонажа (если в этом есть необходимость)
 ```
 Код ниже вы уже разбирали на предыдущих уроках (продолжение верхнего кода)
@@ -57,6 +58,18 @@ func _physics_process(delta: float):
 		$AnimatedSprite2D.play("walk")
 	move_and_slide()
 ```
+
+И добавим прицел игроку 
+```gdscript
+var cursor = preload("res://textures/white_crosshair.png")
+
+func _physics_process(delta: float):
+	Input.set_custom_mouse_cursor(cursor, Input.CURSOR_ARROW, Vector2(16,16))
+```
+>[!IMPORTANT]
+> Обрати внимание на путь, где лежит текстура. У вас может немного отличаться, но лучше создавать папки и все разбивать на папки
+
+
 #### Создание деша
 Фрагмент кода ниже нужен для создания деша (ускорения)
 
