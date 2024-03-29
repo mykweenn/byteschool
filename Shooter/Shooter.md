@@ -209,7 +209,6 @@ func shoot():
 	if can_fire: # если игрок может стрелять
 		var bullet_instance = bullet.instantiate() # инстанцируется пуля (создается экземпляр указанной сцены, клон проще говоря)
 		$bullet_point.position = Vector2(23, -8) # позиция Marker2D (точка вылета пули) мы ставим в позицию которая находится примерно около рук персонажа
-		bullet_instance.rotation = rotation + randf_range(-0.1, 0.1) # инстанцированной пуле мы задаем параметр вращения, добавляя небольшой разброс
 		bullet_instance.global_position = $bullet_point.global_position # глобальная позиция инстанцированной пули и точки вылета пули совпадают
 		bullet_instance.apply_impulse(Vector2(bullet_speed, 0).rotated(get_parent().rotation), Vector2()) # задаем импульс для инстацнированной пули со скоростью пули и методом указываем направление родительского узла, а вторым вектором - ничего
 		Global.camera.shake(0.2, 1) # глобальные настройки тряски камеры
