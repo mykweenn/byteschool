@@ -184,7 +184,19 @@ func _physics_process(delta):
 
 ![image](https://github.com/Sindikaty/byteschool/assets/158248099/2d1e7409-b03b-4b57-b917-ec805dec6a88)
 
-Скрипт сюда мы пока что не будем добавлять и вернемся к нашей пушке и в ее коде создадим новую функцию которая будет отвечать за выстрел. 
+Также можно добавить элемент VisibleOnScreenNotifier2D который позволять нам удалять те пули которые находят за экраном нашей игры
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/e2017057-33cd-45af-b1b7-d529715ed1e4)
+
+Для этого у него присоединим узел screen_exited()
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/0945adb7-2c9a-4299-a913-9642f380af02)
+
+И в скрипте пропишем
+```gdscript
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()
+```
+Теперь вернемся к нашей пушке и в ее коде создадим новую функцию которая будет отвечать за выстрел. 
 Для нее нам понадобится 3 переменных 
 ```gdscript
 var can_fire = true # проверка на возможность стрельбы
