@@ -216,7 +216,6 @@ func shoot():
 		$bullet_point.position = Vector2(23, -8) # позиция Marker2D (точка вылета пули) мы ставим в позицию которая находится примерно около рук персонажа
 		bullet_instance.global_position = $bullet_point.global_position # глобальная позиция инстанцированной пули и точки вылета пули совпадают
 		bullet_instance.apply_impulse(Vector2(bullet_speed, 0).rotated(get_parent().rotation), Vector2()) # задаем импульс для инстацнированной пули со скоростью пули и методом указываем направление родительского узла, а вторым вектором - ничего
-		Global.camera.shake(0.2, 1) # глобальные настройки тряски камеры
 		get_parent().get_parent().add_child(bullet_instance) # получаем родительский узел дважды и добавляем в сцену нового ребенка, который является инстанцированной пулей
 		$sound_gun.play() # проигрывание звука пули
 		can_fire = false # запрещаем стрелять игроку
@@ -230,6 +229,58 @@ func _physics_process(delta):
 	if Input.is_action_pressed("fire"):
 		shoot()
 ```
+### Создание тряски камеры
+
+И последним что мы сделаем на этом уроке, это сделаем тряску камеры при стрельбе. Для нее нам понадобится глобальный скрипт.
+
+Для его создания в меню скриптов нужно нажать `Файл` -> `Новый скрипт` и создать скрипт с названием global или каким-то подобным, после чего зайти в настройки проекта и добавить его в атозагрузку
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/69ce34c0-0918-4481-b92d-c2ed9d0ea30d)
+
+```gdscript
+var camera = null
+```
+
+Для создания тряски прикрепим скрипт к камеры, а также добавим ей `Timer`
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/9ad5bb03-c538-425d-875a-193f715db403)
+
+Создадим 3 переменные которые нам понадобсятся для создания тряски экрана
+```gdscript
+var shake_amount : float = 0
+@onready var timer : Timer = $Timer
+@onready var tween : Tween = create_tween()
+```
+
+Устанавливаем процесс обновления, устанавливаем Global.camera в текущий узел и вызываем функцию randomize().
+
+```gdscript
+func _ready():
+	set_process(true)
+	Global.camera = self
+	randomize()
+```
+Теперь генерируем случайное смещение для создания эффекта тряски.
+
+```gdscript
+func _process(_delta: float):
+	offset = Vector2(randf_range(-3, 3) * shake_amount, randf_range(-3, 3) * shake_amount)
+```
+Теперь создадим функцию shake, которая запускает тряску камеры на заданное время с заданным количеством тряски.
+```gdscript
+func shake(time: float, amount: float):
+	timer.wait_time = time
+	shake_amount = amount
+	set_process(true)
+	timer.start()
+```
+Теперь присоединим узел `_on_timer_timeout()` таймеру. В нем мы останавливаем процесс обновления и запускаем анимацию плавного возвращения камеры в исходное положение.
+func _on_timer_timeout() -> void:
+	set_process(false)
+	tween.interpolate_value(self, "offset", 1, 1, Tween.TRANS_LINEAR, Tween.EASE_IN)
+
+## Урок 3
+
 ### Создание слоумо
 
 И последним что мы сделаем на этом уроке, это начнем делать механику замедления. Для нее нам понадобится глобальный скрипт.
@@ -284,5 +335,3 @@ func slowmo():
 	else:
 		$sound_gun.pitch_scale = 1
 ```
-
-## Урок 3
