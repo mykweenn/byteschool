@@ -197,9 +197,16 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
 ```
 А также добавим удаление патронов при касании с какими-либо физическими объектами
+Для этого добавим у `RigidBody2D` переменную 
 ```gdscript
-func _on_body_entered(body):
-	queue_free()
+var motion = Vector2()
+```
+И пропишем следующий скрипт
+```gdscript
+func _physics_process(delta):
+	var collide = move_and_collide(motion * delta)
+	if collide:
+		queue_free()
 ```
 Теперь вернемся к нашей пушке и в ее коде создадим новую функцию которая будет отвечать за выстрел. 
 Для нее нам понадобится 3 переменных 
