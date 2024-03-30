@@ -275,9 +275,17 @@ func shake(time: float, amount: float):
 	timer.start()
 ```
 Теперь присоединим узел `_on_timer_timeout()` таймеру. В нем мы останавливаем процесс обновления и запускаем анимацию плавного возвращения камеры в исходное положение.
+```gdscript
 func _on_timer_timeout() -> void:
 	set_process(false)
 	tween.interpolate_value(self, "offset", 1, 1, Tween.TRANS_LINEAR, Tween.EASE_IN)
+```
+
+Теперь все что нам осталось добавить вызов функции в функцию `shoot()` у оружия
+
+```gdscript
+Global.camera.shake(0.2, 1)
+```
 
 ## Урок 3
 
