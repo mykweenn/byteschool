@@ -438,3 +438,21 @@ func _physics_process(_delta: float) -> void:
 	...
 	take_damage_e()
 ```
+
+Последнее что мы на сегоджня добавим это интересная анимация источников света вокруг игрока
+
+Для нее создадим обычную 2d сцену и добавим следующие узлы:
+* PointLight2D (х3)
+* AnimationPlayer
+
+Источники света расположим примерно так. Цвет источников можно задать любой
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/a8a4a5ae-537f-428a-985a-14d2c08a13d7)
+
+И теперь создадим небольшую анимацию. В ней мы будем изменять свойство `rotation` у основного узла `Node2D`. Значение rotation у анимации 0, 180 и 360, а также стоит не забыть включить автостарт
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/620232dd-6b6f-400e-bfa7-5f52ac6afd85)
+
+Остается добавить анимацию на уровень или прикрепить к игроку и получится примерно следующая анимация
+
+![Godot Engine Nvidia Profile 2024 04 05 - 13 52 07 02_Trim (1)](https://github.com/Sindikaty/byteschool/assets/158248099/92cf7ab4-e288-41dc-a745-585cd8c91929)
