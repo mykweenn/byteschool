@@ -456,3 +456,5 @@ func _physics_process(_delta: float) -> void:
 Остается добавить анимацию на уровень или прикрепить к игроку и получится примерно следующая анимация
 
 ![Godot Engine Nvidia Profile 2024 04 05 - 13 52 07 02_Trim (1)](https://github.com/Sindikaty/byteschool/assets/158248099/92cf7ab4-e288-41dc-a745-585cd8c91929)
+
+## Урок 4
