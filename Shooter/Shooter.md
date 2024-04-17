@@ -465,10 +465,11 @@ func _physics_process(_delta: float) -> void:
 
 ## Урок 4
 
-Для начала добавим количество патронов нашему игроку. Для этого зайдем в скрипт оружия и добавим переменную отвечающую за количество патронов
+Для начала добавим количество патронов нашему игроку. Для этого зайдем в скрипт оружия и добавим переменные отвечающие за количество патронов
 
 ```gdscript
 var ammoInMagazine = 30
+var maxAmmoInMagazine = 30
 ```
 А также немного изменим функцию стрельбы. Нам нужно добавить в условие проверку на количество патронов, а также добавить их убавление при выстреле
 ```gdscript
@@ -478,4 +479,65 @@ var ammoInMagazine = 30
 		...
 ```
 
-Теперь после 30 выстрелов у нас пропадет возможность стрельбы, поэтому следующим шагом мы добавим зоны поднятия оружия
+Теперь после 30 выстрелов у нас пропадет возможность стрельбы, поэтому следующим шагом мы добавим зоны поднятия оружия. Для нее нам понадобится:
+
+* Area2D
+* CollisionShape2D
+* Sprite2D
+* Timer
+* Label
+
+По итогу у нас получится что-то подобное
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/a1c4231d-5fcf-4f37-b114-4554fda4becf)
+
+Перейдем к скрипту
+
+Для начала добавим переменные. Первые 3 отвечают за наши дочерние узлы, а оставшиеся 2 являются логическими и буду нужны для проверок на поднятие патронов
+
+```gdscript
+@onready var timer = $Timer
+@onready var collision_shape_2d = $CollisionShape2D
+@onready var label = $Label
+@onready var ammoPickedUp = false
+var canPick : bool = true
+```
+
+Присоединим узел `_on_body_entered` к нашей зоне и начнем делать подбор оружия
+
+```gdscript
+func _on_body_entered(body):
+	if body.name == "player" and canPick:
+		collision_shape_2d.disabled = true # убираем коллизию 
+		body.call("pickupAmmo") # вызываем метод pickupAmmo
+		timer.start() # включаем таймер
+		ammoPickedUp = true # патроны подняты = тру
+		canPick = false # можем поднять еще = фолс
+```
+
+Как мы видим мы обращаемся к функции `pickupAmmo` которой у нас еще нет, поэтому переходим в скрипт игрока и создаем там эту функцию
+
+```gdscript
+@onready var stateGun = get_node("gun") # узел нашего оружия
+
+func pickupAmmo():
+	stateGun.ammoInMagazine = stateGun.maxAmmoInMagazine 
+```
+
+Теперь мы можем поднять оружие 1 раз, для того чтобы мы могли делаеть это несколько раз с какой-то периодичностью нам нужно присоединить узел к таймеру `_on_timer_timeout`
+```gdscript
+	collision_shape_2d.disabled = false # включем коллизию
+	timer.stop() # выключаем таймер
+	label.text = ""
+	ammoPickedUp = false # патроны подняты = фолс
+	canPick = true # можем поднять еще = тру
+```
+
+По сути поднятие оружие готово, но для удобства можно добавить `label` в котором будет выводится время когда можно будет поднять оружие в следующий раз
+```gdscript
+func _process(delta):
+	if ammoPickedUp:
+		label.text = str(int(timer.time_left))
+```
+
+Респавн ботов
