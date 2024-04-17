@@ -626,3 +626,15 @@ func _process(delta: float) -> void:
 		text = "FPS: "
 		text += str(frames)
 ```
+
+Можно также добавить музыку на уровне. Для этого добавляем `AudioStreamPlayer2D` на наш уровень, а также не забываем о том, что у нас есть слоумо и в скрипте уровня нужно будет замедлять его если мы в слоумо
+
+```gdscript
+func _process(delta):	
+	if Global.slowmo == true:
+		$"Music_background".pitch_scale = 0.8
+	else:
+		$"Music_background".pitch_scale = 1
+```
+
+Осталосб добавить чтобы при смерти все процессы останавливались и была возможность рестарта
