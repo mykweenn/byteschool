@@ -526,6 +526,7 @@ func pickupAmmo():
 
 Теперь мы можем поднять оружие 1 раз, для того чтобы мы могли делаеть это несколько раз с какой-то периодичностью нам нужно присоединить узел к таймеру `_on_timer_timeout`
 ```gdscript
+func _on_timer_timeout():
 	collision_shape_2d.disabled = false # включем коллизию
 	timer.stop() # выключаем таймер
 	label.text = ""
