@@ -274,6 +274,7 @@ func _on_area_entered(area):
 
 ```gdscript
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
+@onready var asteroids = $Asteroids # это узел в котором лежат наши астероиды
 ```
 
 Теперь нам нужно создать еще 2 функции. Первая функция будет отвечать за спавн астероидов
