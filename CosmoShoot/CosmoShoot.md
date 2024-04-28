@@ -297,3 +297,12 @@ func _on_asteroid_exploded(pos, size, points):
                 spawn_asteroid(pos, Asteroid.AsteroidSize.SMALL)   # Если астероид был средним, создаем два маленьких астероида
             Asteroid.AsteroidSize.SMALL:
 ```
+
+И последним что осталось это подключить сигнал в _ready()
+
+```gdscript
+func _ready():
+	...
+	for asteroid in asteroids.get_children(): # asteroids это узел в котором лежат наши астероиды
+		asteroid.connect("exploded", _on_asteroid_exploded)
+```
