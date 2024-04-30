@@ -24,29 +24,39 @@
 Задидаим перемещение вперед и назад, а также ограничим скорость перемещения
 
 ```gdscript
+func _physics_process(delta):
 	var input_vector := Vector2(0,Input.get_axis("up","down"))
 	velocity += input_vector.rotated(rotation) * acceleration #перемещение в пространстве
 	velocity = velocity.limit_length(max_speed) #макс скорость
+	...
 ```
 
 Следующим шагом добавим поворот нашего корабля
 
 ```gdscript
-if Input.is_action_pressed("right"): #поворот вправо
+func _physics_process(delta):
+	...
+	if Input.is_action_pressed("right"): #поворот вправо
 		rotate(deg_to_rad(rotation_speed*delta))
 	if Input.is_action_pressed("left"): #поворот влево
 		rotate(deg_to_rad(-rotation_speed*delta))
+	...
 ```
 
 Теперь наш корабль может двигаться, однако он не перестает это делать в направлении вектора даже если мы отпустили все кнопки. Чтобы это исправить мы добавим еще одно условие 
 
 ```gdscript
+func _physics_process(delta):
+	...
 if input_vector.y == 0: #останавка игрока при отпущенной клавише
 		velocity = velocity.move_toward(Vector2.ZERO,3)
+	...
 ```
 
 Так как мы будет ограничены в рамках изначальных размеров поля и у нас не должно быть возможности вылета за экран добавим условия на проверку этого
 ```gdscript
+func _physics_process(delta):
+	...
 	var screen_size = get_viewport_rect().size #размер экрана
 	if global_position.y <0: #п
 		global_position.y = screen_size.y #п
@@ -56,6 +66,7 @@ if input_vector.y == 0: #останавка игрока при отпущенн
 		global_position.x = screen_size.x #п
 	elif global_position.x > screen_size.x: #п
 		global_position.x = 0 #п
+	...
 ```
 
 ### Создание игрока (выстрел)
@@ -93,7 +104,7 @@ func _physics_process(delta):
 
 ![image](https://github.com/Sindikaty/byteschool/assets/158248099/de60acc7-4da4-467e-8af2-1a4e9e325b33)
 
-Теперь можно вернуться к игроку и создать у него функцию shoot_laser(). Для нее нам понадобится 3 переменные
+Теперь можно вернуться к игроку и создать у него функцию shoot_laser(). Для нее нам понадобится 2 переменные и сигнал
 
 ```gdscript
 signal laser_shot(laser) # Сигнал и какой параметр будет передаваться
@@ -173,7 +184,7 @@ func _ready():
 
 ![image](https://github.com/Sindikaty/byteschool/assets/158248099/8216241d-9707-4c85-b5d7-896efacf40c0)
 
-После создания астероидов начнем создавать переменные которые нам будут нужны в дальнейшем, например, переменную определяющую размер астероида, определяющая размер очков за его уничтожение и т.д.
+После создания астероидов начнем создавать переменные которые нам будут нужны в дальнейшем, например, переменную определяющую размер астероида, размер очков за его уничтожение и т.д.
 
 ```gdscript
 @onready var sprite = $Sprite2D
