@@ -318,3 +318,89 @@ func _ready():
 	for asteroid in asteroids.get_children(): # asteroids это узел в котором лежат наши астероиды
 		asteroid.connect("exploded", _on_asteroid_exploded)
 ```
+
+Начнем делать смерть игрока от астероидов. Для этого добавим у игрока 3 переменные и 1 сигнал
+
+* var alive = true
+* @onready var sprite = $Sprite2D
+* @onready var cshape = $CollisionPolygon2D
+* signal died()
+
+Добавим функцию смерти игрока в которой мы выключаем коллизию и спрайт
+
+```gdscript
+func die():
+	if alive == true:
+		alive = false
+		sprite.visible = false
+		cshape.set_deferred("disabled", true)
+		emit_signal("died")
+```
+
+Теперь добавим вызов этой функции в скрипте астероида. Для этого у Area2D астероида присоединим сигнал `body_entered` и добавим проверку на то игрок ли это, а для того чтобы условия работало корректно добавим имя класса игроку `Player`
+
+```gdscript
+class_name Player extends CharacterBody2D
+```
+
+```gdscript
+func _on_body_entered(body):
+	if body is Player:
+		var player = body
+		player.die()
+```
+
+После этого как и с выстрел возвращаемся в сцену игры и создаем новую функцию
+```gdscript
+func _on_player_died():
+	$PlayDieSound.play()
+	print("you are died")
+```
+
+И коннектим наш сигнал с функцией
+
+```gdscript
+func _ready():
+	...
+	player.connect("died", _on_player_died)
+	...
+```
+
+Теперь наш игрок погибает при столкновении с астероидом. Добавим нашему игроку возраждение, для этого создадим у игрока функцию респавна
+
+```gdscript
+func respawn(pos):
+	if alive == false:
+		alive = true
+		global_position = pos
+		velocity = Vector2.ZERO
+		sprite.visible = true
+		cshape.set_deferred("disabled", false)
+```
+
+Теперь нам нужно определить место спавна. Мы его создадим из узла Node2D, который мы созаддим в основном узле и поставим в месте где хотим, чтобы наш игрок спавнился
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/41618f3a-1f64-454c-bdac-10e8ce14dcf0)
+
+Добавим переменную которая будет отвечать заэ ту точку
+
+```gdscript
+@onready var player_spawn_pos = $PlayerSpawnPos
+```
+
+А теперь добавим в функцию смерти игрока в основной сцене 2 строчки. 1 отвечаемт за место спавна, вторая вызывает функцию респавна
+
+```gdscript
+func _on_player_died():
+	$PlayDieSound.play()
+	print("you are died")
+	player.global_position = player_spawn_pos.global_position
+	player.respawn(player_spawn_pos.global_position)
+```
+
+Спавн работает, однако мы можем делать это бесконечно. Давайте теперь добавим хп и счет за разрушение астероидов
+
+
+
+
+
