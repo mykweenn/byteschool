@@ -560,4 +560,27 @@ func _physics_process(delta):
 	if !alive: return
 ```
 
+Добавим эффект параллакса, для него создадим отдельный Node2D на нашем уровне. К нему присоединим 3 `GPUParticles2D`.
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/d71ed235-262e-45b2-8fe8-06fd9ed47f9e)
+
+Начнем со звезд которые дальше всего от нас и с следовательно их будет больше и двигаться они будут медленнее. Ставим их справа за видимым краем примерно по середине экрана
+Свойста мелких
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/d6cb9eff-1236-4ba4-a7bc-6772a43e8f74)
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/4407acfc-fa43-4e45-8e57-0e051a4c9c62)
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/ae2f8557-d45e-4d65-aa31-03cf72071837)
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/8e2d5ce1-d380-4275-ad70-9494911cf9db)
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/36b13e85-741b-4939-b612-034a8eda1d30)
+
+У средних менять кол-во и размер (кол-во 250 скэйл 3)
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/65ac4327-7d91-4476-a1c3-c10fc7be3fa2)
+
+
+Большие (кол-во 30 скэйл 5)
+
+	
+
 Все что осталось это сделать спавн астероидов
