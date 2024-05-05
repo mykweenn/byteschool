@@ -400,6 +400,102 @@ func _on_player_died():
 
 Спавн работает, однако мы можем делать это бесконечно. Давайте теперь добавим хп и счет за разрушение астероидов
 
+Для создании HUD нам понадобится 2 сцены, в первой мы добавим текстурки hp, а втора сам HUD. Начнем с создания первой сцены, она будет состоять из одного элемента
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/a8c60424-2254-4790-af0a-a631dd1763cc)
+
+И ставим его в то место где у анс будут находится hp
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/82f2278a-3c2d-4e22-953e-ebeabf709617)
+
+Сохраняем и переходим ко второй сцене. Она состоит из следующих элементов:
+* Control (основнрй узел)
+* Label (счет)
+* BoxContainer (хп)
+
+У `Label` можно задать изначальный текст для проверки того как будет выглядить и добавить шрифт и его размер
+
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/c76bade0-478a-411c-8de4-0ccffef8adc7)
+
+Располагаем элементы как хотит и переходим к работе со скриптом. Создаем его у элемента `Control`. Нам понадобится 3 переменные
+
+```gdscript
+@onready var score = $Score:
+	set(value):
+		score.text = "SCORE: " + str(value)
+
+var uilife_scene = preload("res://scenes/ui_life.tscn")
+
+@onready var lives = $Lives
+```
+
+И создаем функцию которая отвечает за отображение количества HP в виде наших кораблей
+
+```gdscript
+func init_lives(amount):
+	for ul in lives.get_children():
+		ul.queue_free()
+	for i in amount:
+		var ul = uilife_scene.instantiate()
+		lives.add_child(ul)
+```
+
+Добавляем нащ худ на сцену с уровнем (можно создать CanvarLayer и к нему прикрепить HUD). Переходим в скрипт нашего уровня и также создаем 3 переменные. 
+
+```gdscript
+@onready var hud = $UI/HUD
+
+var score := 0:
+	set(value):
+		score = value
+		hud.score = score
+
+var lives: int:
+	set(value):
+		lives = value
+		hud.init_lives(lives)
+```
+
+В `_ready` добавляем размер изначальных очков и HP
+
+```gdscript
+func _ready():
+	score = 0
+	lives = 3
+```
+
+Для отображения хп изменяем функцию `_on_player_died()`
+
+```gdscript
+func _on_player_died():
+	$Audio/hit.play()
+	player.global_position = player_spawn_pos.global_position
+	if lives <= 0:
+		await get_tree().create_timer(2).timeout
+		print("you are dead)
+	else:
+		await get_tree().create_timer(1).timeout
+		player.respawn(player_spawn_pos.global_position)
+```
+
+А для подсчета очков добавим в функцию `_on_asteroid_exploded`
+
+```gdscript
+func _on_asteroid_exploded(pos, size, points):
+	...
+	score += points
+	...
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
