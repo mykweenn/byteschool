@@ -456,6 +456,8 @@ var lives: int:
 		hud.init_lives(lives)
 ```
 
+Что такое set() и для чего оно нам нужно. Сеттер — это метод, который автоматически вызывается каждый раз, когда значение связанной с ним переменной изменяется. В нашем случае set(value) определён для переменной lives. Это значит, что каждый раз, когда мы пытаетесь изменить значение lives в коде (например, lives = 5), вместо того чтобы просто обновить значение переменной, Godot автоматически вызывает метод set(value) с новым значением в качестве аргумента value.
+
 В `_ready` добавляем размер изначальных очков и HP
 
 ```gdscript
@@ -469,6 +471,7 @@ func _ready():
 ```gdscript
 func _on_player_died():
 	$Audio/hit.play()
+	lives -= 1
 	player.global_position = player_spawn_pos.global_position
 	if lives <= 0:
 		await get_tree().create_timer(2).timeout
@@ -487,16 +490,41 @@ func _on_asteroid_exploded(pos, size, points):
 	...
 ```
 
+Раз мы начали делать UI можно добавить также сцену отвечающую за рестарт игры при смерти. Для этого создадим новую сцену состоящую из следующих элементов:
+* Control (Основной узел)
+* Label (Текст о рестарке)
+* Button (Кнопка обновления игры)
 
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/39a5ccff-303e-4b15-96d2-5164f7b83cdb)
+![image](https://github.com/Sindikaty/byteschool/assets/158248099/d38a4e3d-b23b-4937-a424-5252e58ff580)
 
+У кнопки добавляем сигнал который считывает нажатие и прописываем в нем обновление сцены
 
+```gdscript
+func _on_restart_button_pressed():
+	get_tree().reload_current_scene()
+```
 
+Теперь нужно добавить ее на наш уровень в CanvasLayer и делаем изначально невидымым после чего переходим в код 
 
+Создадим переменную отвечающую за нас экран смерти. Также можем добавить в _ready что изначальное отображение отсутствует
 
+```gdscript
+@onready var game_over_screen = $UI/GameOverScreen
 
+func _ready():
+	game_over_screen.visible = false
+ 	...
+```
 
+И в конце добавим чтобы она включалась при HP <= 0 в функции смерти игрока
+```gdscript
+if lives <= 0:
+	...
+	game_over_screen.visible = true
+else:
+```
 
-
-
+Теперь у нас есть HP однако появляется еще одна проблема. Если мы умираем и в точке спавна есть астероид мы при появление сразу же умираем, поэтому можно добавить еще одну сцену которая будет рестартить нашу игру. 
 
 
